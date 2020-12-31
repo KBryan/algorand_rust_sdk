@@ -1,4 +1,4 @@
-# rust-algorand-sdk
+# rust algorand sdk
 
 # Documentation
 

@@ -2,8 +2,9 @@
 
 # Documentation
 
-This is the current attempt to stay up Rust version of the Algorand SDK <br>
-General Algorand documentation is available at https://developer.algorand.org/
+This is the current Rust version implementation of the Algorand SDK <br>
+General Algorand documentation is available at https://developer.algorand.org/ <br>
+Please look at the example for Rust Algorand usage.
 
 
 # Quickstart

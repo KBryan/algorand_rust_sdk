@@ -1,15 +1,3 @@
-# rust-algorand-sdk
-
-# Documentation
-
-This is the current attempt to stay up Rust version of the Algorand SDK <br>
-General Algorand documentation is available at https://developer.algorand.org/
-
-
-# Quickstart
-This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.
-
-```rust
 use std::error::Error;
 
 use algosdk::AlgodClient;
@@ -36,5 +24,3 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     Ok(())
 }
-
-```

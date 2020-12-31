@@ -1,8 +1,15 @@
 [package]
-name = "algosdk"
-version = "0.1.0"
+name = "algo_rust_sdk"
+version = "1.0.1"
 authors = ["mraof <mraof@mraof.com>","Kwame Bryan <kwame.bryan@gmail.com>"]
 edition = "2018"
+license = "MIT "
+description = "This is the Rust implementation of the Algorand SDK"
+readme = "README.md"
+homepage = "https://github.com/KBryan/algorand_rust_sdk"
+repository = "https://github.com/KBryan/algorand_rust_sdk"
+keywords = ["cli", "blockchain"]
+categories = ["command-line-utilities", "sdk", "blockchain"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

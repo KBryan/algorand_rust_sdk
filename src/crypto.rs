@@ -3,7 +3,6 @@ use serde::Deserialize;
 use sha2::Digest;
 
 use crate::Ed25519PublicKey;
-
 type ChecksumAlg = sha2::Sha512Trunc256;
 
 const CHECKSUM_LEN: usize = 4;

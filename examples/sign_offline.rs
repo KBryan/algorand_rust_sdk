@@ -2,9 +2,9 @@ use std::error::Error;
 use std::fs::File;
 use std::io::Write;
 
-use algosdk::account::Account;
-use algosdk::transaction::{BaseTransaction, Payment, Transaction, TransactionType};
-use algosdk::{mnemonic, Address, HashDigest, MicroAlgos, Round};
+use algo_rust_sdk::account::Account;
+use algo_rust_sdk::transaction::{BaseTransaction, Payment, Transaction, TransactionType};
+use algo_rust_sdk::{mnemonic, Address, HashDigest, MicroAlgos, Round};
 
 fn main() -> Result<(), Box<dyn Error>> {
     let account = Account::generate();

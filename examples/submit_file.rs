@@ -2,7 +2,7 @@ use std::error::Error;
 use std::fs::File;
 use std::io::Read;
 
-use algosdk::AlgodClient;
+use algo_rust_sdk::AlgodClient;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let algod_address = "http://localhost:4001";

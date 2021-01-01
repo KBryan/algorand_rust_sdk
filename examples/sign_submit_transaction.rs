@@ -1,7 +1,7 @@
 use std::error::Error;
 
-use algosdk::transaction::{BaseTransaction, Payment, Transaction, TransactionType};
-use algosdk::{Address, AlgodClient, KmdClient, MicroAlgos};
+use algo_rust_sdk::transaction::{BaseTransaction, Payment, Transaction, TransactionType};
+use algo_rust_sdk::{Address, AlgodClient, KmdClient, MicroAlgos};
 
 fn main() -> Result<(), Box<dyn Error>> {
     let kmd_address = "http://localhost:4002";

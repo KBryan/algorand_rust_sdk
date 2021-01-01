@@ -1,4 +1,4 @@
-use algosdk::{AlgodClient, KmdClient};
+use algo_rust_sdk::{AlgodClient, KmdClient};
 
 fn main() {
     let algod_address = "http://localhost:4001";

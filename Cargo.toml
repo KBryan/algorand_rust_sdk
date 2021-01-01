@@ -11,8 +11,6 @@ repository = "https://github.com/KBryan/algorand_rust_sdk"
 keywords = ["cli", "blockchain"]
 categories = ["command-line-utilities", "sdk", "blockchain"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 indexmap = "1.2.0"
 lazy_static = "1.4.0"

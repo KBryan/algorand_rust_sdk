@@ -11,9 +11,10 @@ Please look at the example for Rust Algorand usage.
 This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.
 
 ```rust
+
 use std::error::Error;
 
-use algosdk::AlgodClient;
+use algo_rust_sdk::AlgodClient;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let algod_address = "http://localhost:4001";

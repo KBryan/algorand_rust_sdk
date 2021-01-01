@@ -10,7 +10,7 @@ You can find Algorand Rust documentation at https://docs.rs/algo_rust_sdk/1.0.1/
 
 # Quickstart
 This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.<br>
-and have algo_rust_sdk = "1.0.2" added to your Cargo.toml file.
+and have `algo_rust_sdk = "1.0.2"` added to your `Cargo.toml` file.
 
 ```rust
 

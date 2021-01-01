@@ -1,6 +1,6 @@
 [package]
 name = "algo_rust_sdk"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["mraof <mraof@mraof.com>","Kwame Bryan <kwame.bryan@gmail.com>"]
 edition = "2018"
 license = "MIT "

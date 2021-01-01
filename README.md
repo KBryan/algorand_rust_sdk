@@ -2,18 +2,23 @@
 
 # Documentation
 
-This is the current Rust version implementation of the Algorand SDK <br>
+Rust Algorand SDK <br>
 General Algorand documentation is available at https://developer.algorand.org/ <br>
-Please look at the example for Rust Algorand usage.
+Please look at the example for Rust Algorand usage.<br>
+You can find Algorand Rust documentation at https://docs.rs/algo_rust_sdk/1.0.1/algo_rust_sdk/<br>
+
+
 
 
 # Quickstart
-This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.
+This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.<br>
+Add algo_rust_sdk = "1.0.2" to your Cargo.toml
 
 ```rust
+
 use std::error::Error;
 
-use algosdk::AlgodClient;
+use algo_rust_sdk::AlgodClient;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let algod_address = "http://localhost:4001";

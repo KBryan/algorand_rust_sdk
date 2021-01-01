@@ -5,18 +5,18 @@ use std::time::Duration;
 use cucumber::{Steps, StepsBuilder};
 use data_encoding::BASE64;
 
-use algo_rust_sdk::account::{Account};
+use algo_rust_sdk::account::Account;
+use algo_rust_sdk::algod::models::NodeStatus;
 use algo_rust_sdk::auction::{Bid, SignedBid};
-use algo_rust_sdk::crypto::{ MultisigAddress};
+use algo_rust_sdk::crypto::{Address, MultisigAddress};
 use algo_rust_sdk::transaction::{
     BaseTransaction, KeyRegistration, Payment, SignedTransaction, Transaction, TransactionType,
 };
-
-use algosdk::{
-    algo_rust_sdk, Ed25519PublicKey, HashDigest, MasterDerivationKey, MicroAlgos, Round, VotePK, VRFPK,
+use algo_rust_sdk::AlgodClient;
+use algo_rust_sdk::KmdClient;
+use algo_rust_sdk::{
+    mnemonic, Ed25519PublicKey, HashDigest, MasterDerivationKey, MicroAlgos, Round, VotePK, VRFPK,
 };
-use algo_rust_sdk::{AlgodClient, KmdClient, Round, MicroAlgos, Ed25519PublicKey, Address, HashDigest, VotePK, VRFPK, MasterDerivationKey, mnemonic};
-use algo_rust_sdk::algod::models::NodeStatus;
 
 #[derive(Default)]
 pub struct World {
@@ -802,3 +802,4 @@ fn main() {
         std::process::exit(1);
     }
 }
+

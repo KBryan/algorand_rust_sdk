@@ -1,6 +1,5 @@
 use std::error::Error;
 
-use algosdk::AlgodClient;
 use algo_rust_sdk::AlgodClient;
 
 fn main() -> Result<(), Box<dyn Error>> {

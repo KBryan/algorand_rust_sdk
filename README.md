@@ -5,7 +5,7 @@
 Rust Algorand SDK <br>
 General Algorand documentation is available at https://developer.algorand.org/ <br>
 Please look at the example for Rust Algorand usage.<br>
-You can find Algorand Rust documentation at https://docs.rs/algo_rust_sdk/1.0.1/algo_rust_sdk/
+You can find Algorand Rust documentation at https://docs.rs/algo_rust_sdk/1.0.2/algo_rust_sdk/
 
 
 # Quickstart

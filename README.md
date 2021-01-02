@@ -7,7 +7,9 @@ General Algorand documentation is available at https://developer.algorand.org/ <
 
 Please look at the examples for Rust Algorand usage.<br>
 You can also find Algorand Rust documentation at https://docs.rs/algo_rust_sdk/1.0.3/algo_rust_sdk/</br>
-This repo is in RAPID development please visit https://crates.io/crates/algo_rust_sdk stable stable release and documentation.
+This repo is in RAPID development and subject to breaking changes</br>
+please visit https://crates.io/crates/algo_rust_sdk </br>
+For stable release candidate and documentation.
 
 
 

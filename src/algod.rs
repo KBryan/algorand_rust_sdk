@@ -13,18 +13,20 @@ const AUTH_HEADER: &str = "X-Algo-API-Token";
 pub struct AlgodClient {
     url: String,
     token: String,
+    version:String,
     headers: HeaderMap,
 }
 
 impl AlgodClient {
-    pub fn new(address: &str, token: &str) -> AlgodClient {
-        AlgodClient::new_with_headers(address, token, HeaderMap::new())
+    pub fn new(address: &str, token: &str ,version:&str) -> AlgodClient {
+        AlgodClient::new_with_headers(address, token, version,HeaderMap::new())
     }
 
-    pub fn new_with_headers(address: &str, token: &str, headers: HeaderMap) -> AlgodClient {
+    pub fn new_with_headers(address: &str, token: &str, version:&str, headers: HeaderMap) -> AlgodClient {
         AlgodClient {
             url: address.to_string(),
             token: token.to_string(),
+            version:version.to_string(),
             headers,
         }
     }
@@ -54,7 +56,7 @@ impl AlgodClient {
     /// Gets the current node status
     pub fn status(&self) -> Result<NodeStatus, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/v1/status", self.url))
+            .get(&format!("{}/{}/status", self.url, self.version))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -81,7 +83,7 @@ impl AlgodClient {
     /// Get the block for the given round
     pub fn block(&self, round: Round) -> Result<Block, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/v1/block/{}", self.url, round.0))
+            .get(&format!("{}/{}/block/{}",self.url, self.version, round.0))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -93,7 +95,7 @@ impl AlgodClient {
     /// Gets the current supply reported by the ledger
     pub fn ledger_supply(&self) -> Result<Supply, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/v1/ledger/supply", self.url))
+            .get(&format!("{}/{}/ledger/supply", self.url,self.version))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -104,7 +106,7 @@ impl AlgodClient {
 
     pub fn account_information(&self, address: &str) -> Result<Account, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/v1/account/{}", self.url, address))
+            .get(&format!("{}/{}/account/{}", self.url, self.version,address))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -118,7 +120,7 @@ impl AlgodClient {
     /// Sorted by priority in decreasing order and truncated at the specified limit, or returns all if specified limit is 0
     pub fn pending_transactions(&self, limit: u64) -> Result<PendingTransactions, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/v1/transactions/pending", self.url))
+            .get(&format!("{}/{}/transactions/pending", self.url,self.version))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .query(&[("max", limit.to_string())])
@@ -135,8 +137,8 @@ impl AlgodClient {
     ) -> Result<Transaction, Error> {
         let response = reqwest::Client::new()
             .get(&format!(
-                "{}/v1/transactions/pending/{}",
-                self.url, transaction_id
+                "{}/{}/transactions/pending/{}",
+                self.url,self.version, transaction_id
             ))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
@@ -173,7 +175,7 @@ impl AlgodClient {
             query.push(("max", limit.to_string()))
         }
         let response = reqwest::Client::new()
-            .get(&format!("{}/v1/account/{}/transactions", self.url, address))
+            .get(&format!("{}/{}/account/{}/transactions", self.url, self.version,address))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .query(&query)
@@ -195,7 +197,7 @@ impl AlgodClient {
     /// Broadcasts a raw transaction to the network
     pub fn raw_transaction(&self, raw: &[u8]) -> Result<TransactionID, Error> {
         let response = reqwest::Client::new()
-            .post(&format!("{}/v1/transactions", self.url))
+            .post(&format!("{}/{}/transactions", self.url,self.version))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .body(raw.to_vec())
@@ -208,7 +210,7 @@ impl AlgodClient {
     /// Gets the information of a single transaction
     pub fn transaction(&self, transaction_id: &str) -> Result<Transaction, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/v1/transaction/{}", self.url, transaction_id))
+            .get(&format!("{}/{}/transaction/{}", self.url,self.version, transaction_id))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -225,8 +227,8 @@ impl AlgodClient {
     ) -> Result<Transaction, Error> {
         let response = reqwest::Client::new()
             .get(&format!(
-                "{}/v1/account/{}/transaction/{}",
-                self.url, address, transaction_id
+                "{}/{}/account/{}/transaction/{}",
+                self.url, self.version, address, transaction_id
             ))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
@@ -239,7 +241,7 @@ impl AlgodClient {
     /// Gets suggested fee in units of micro-Algos per byte
     pub fn suggested_fee(&self) -> Result<TransactionFee, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/v1/transactions/fee", self.url))
+            .get(&format!("{}/{}/transactions/fee", self.url, self.version))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -251,7 +253,7 @@ impl AlgodClient {
     /// Gets parameters for constructing a new transaction
     pub fn transaction_params(&self) -> Result<TransactionParams, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/v1/transactions/params", self.url))
+            .get(&format!("{}/{}/transactions/params", self.url, self.version))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?

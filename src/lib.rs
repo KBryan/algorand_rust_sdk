@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 pub mod account;
 /// Algorand protocol daemon
 pub mod algod;
+pub mod algod_v2;
 pub mod auction;
 pub mod crypto;
 /// Key management daemon
@@ -11,12 +12,16 @@ pub mod kmd;
 pub mod mnemonic;
 pub mod transaction;
 pub(crate) mod util;
+pub mod indexer;
 
 pub const MICRO_ALGO_CONVERSION_FACTOR: f64 = 1e6;
 
 pub use algod::AlgodClient;
+pub use indexer::IndexerClient;
 pub use crypto::Address;
 pub use kmd::KmdClient;
+pub use algod_v2::AlgodClientV2;
+
 /// MicroAlgos are the base unit of currency in Algorand
 #[derive(Copy, Clone, Default, Debug, Ord, PartialOrd, Eq, PartialEq, Serialize, Deserialize)]
 pub struct MicroAlgos(pub u64);

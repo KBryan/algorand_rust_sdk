@@ -89,7 +89,11 @@ pub fn steps() -> Steps<World> {
                 f.read_line(&mut address).unwrap();
                 address
             };
-            world.algod_client = Some(AlgodClient::new(&address, &token))
+            let version:String = {
+                let v1 = "v1".to_string();
+                version
+            };
+            world.algod_client = Some(AlgodClient::new(&address, &token,&version));
         })
         .given("a kmd client", |world: &mut World, _step| {
             let home = dirs::home_dir().expect("Couldn't get home dir");
@@ -769,37 +773,8 @@ pub fn steps() -> Steps<World> {
     builder.build()
 }
 
-/*
-cucumber! {
-    features: "./features",
-    world: World,
-    steps: &[crate::steps]
-}
-*/
 #[allow(unused_imports)]
 fn main() {
-    use cucumber::{CucumberBuilder, DefaultOutput, OutputVisitor, Scenario, Steps};
-    use std::path::Path;
 
-    let output = DefaultOutput::new();
-    let instance = {
-        let mut instance = CucumberBuilder::new(output);
-
-        instance
-            .features(<[_]>::into_vec(Box::new([
-                (Path::new("./features").to_path_buf())
-            ])))
-            .steps(Steps::combine((&[crate::steps]).iter().map(|f| f())));
-        instance
-    };
-
-    let options = cucumber::cli::make_app().unwrap();
-    println!("{:?}", options.tag);
-
-    let res = instance.command_line();
-
-    if !res {
-        std::process::exit(1);
-    }
 }
 

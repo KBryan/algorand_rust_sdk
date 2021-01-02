@@ -6,7 +6,7 @@ This is the current Rust version implementation of the Algorand SDK <br>
 General Algorand documentation is available at https://developer.algorand.org/ <br>
 
 Please look at the examples for Rust Algorand usage.<br>
-You can also find Algorand Rust documentation at https://docs.rs/algo_rust_sdk/1.0.2/algo_rust_sdk/
+You can also find Algorand Rust documentation at https://docs.rs/algo_rust_sdk/1.0.3/algo_rust_sdk/
 
 
 

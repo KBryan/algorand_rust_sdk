@@ -8,14 +8,14 @@ General Algorand documentation is available at https://developer.algorand.org/ <
 Please look at the examples for Rust Algorand usage.<br>
 You can also find Algorand Rust documentation at https://docs.rs/algo_rust_sdk/1.0.3/algo_rust_sdk/</br>
 This repo is in RAPID development and subject to breaking changes</br>
-please visit https://crates.io/crates/algo_rust_sdk </br>
+and doesn't mirror this repo please visit https://crates.io/crates/algo_rust_sdk </br>
 For stable release candidate and documentation.
 
 
 
 # Quickstart
 This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.<br>
-and have `algo_rust_sdk = "1.0.3"` added to your `Cargo.toml` file.
+using this repo as source and have `algo_rust_sdk = "1.0.3"` added to your `Cargo.toml` file.
 
 ```rust
 use std::error::Error;
@@ -25,8 +25,9 @@ use algo_rust_sdk::AlgodClient;
 fn main() -> Result<(), Box<dyn Error>> {
     let algod_address = "http://localhost:4001";
     let algod_token="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    let algod_version = "v1";
 
-    let algod_client = AlgodClient::new(algod_address, algod_token);
+    let algod_client = AlgodClient::new(algod_address, algod_token,algod_version);
 
     // Print algod status
     let node_status = algod_client.status()?;
@@ -44,5 +45,6 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     Ok(())
 }
+
 
 ```

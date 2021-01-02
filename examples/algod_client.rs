@@ -5,9 +5,8 @@ use algo_rust_sdk::AlgodClient;
 fn main() -> Result<(), Box<dyn Error>> {
     let algod_address = "http://localhost:4001";
     let algod_token="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    let algod_version = "v1";
 
-    let algod_client = AlgodClient::new(algod_address, algod_token,algod_version);
+    let algod_client = AlgodClient::new(algod_address, algod_token);
 
     // Print algod status
     let node_status = algod_client.status()?;

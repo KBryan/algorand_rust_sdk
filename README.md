@@ -4,11 +4,15 @@
 
 This is the current Rust version implementation of the Algorand SDK <br>
 General Algorand documentation is available at https://developer.algorand.org/ <br>
-Please look at the example for Rust Algorand usage.
+
+Please look at the examples for Rust Algorand usage.<br>
+You can also find Algorand Rust documentation at https://docs.rs/algo_rust_sdk/1.0.2/algo_rust_sdk/
+
 
 
 # Quickstart
-This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.
+This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.<br>
+and have `algo_rust_sdk = "1.0.3"` added to your `Cargo.toml` file.
 
 ```rust
 use std::error::Error;

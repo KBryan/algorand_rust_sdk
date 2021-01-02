@@ -15,7 +15,7 @@ For stable release candidate and documentation.
 
 # Quickstart
 This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.<br>
-using this repo as source and have `algo_rust_sdk = "1.0.3"` added to your `Cargo.toml` file.
+and using this repo as source.
 
 ```rust
 use std::error::Error;

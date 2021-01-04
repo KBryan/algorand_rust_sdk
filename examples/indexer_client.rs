@@ -1,7 +1,6 @@
 use std::error::Error;
 
 use algo_rust_sdk::IndexerClient;
-use futures::stream::Empty;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let indexer_address = "http://localhost:8980";
@@ -11,7 +10,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
      //Print algod status
 
-    let _node_status = indexer_client.status()?;
+    let _node_status = indexer_client.health()?;
 
     Ok(())
 }

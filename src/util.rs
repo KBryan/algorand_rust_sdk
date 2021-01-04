@@ -284,6 +284,8 @@ where
     Ok(MasterDerivationKey(deserialize_bytes32(deserializer)?))
 }
 
+
+
 pub fn deserialize_bytes32<'de, D>(deserializer: D) -> Result<[u8; 32], D::Error>
 where
     D: Deserializer<'de>,

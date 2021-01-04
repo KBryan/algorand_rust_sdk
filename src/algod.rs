@@ -13,20 +13,18 @@ const AUTH_HEADER: &str = "X-Algo-API-Token";
 pub struct AlgodClient {
     url: String,
     token: String,
-    version:String,
     headers: HeaderMap,
 }
 
 impl AlgodClient {
-    pub fn new(address: &str, token: &str ,version:&str) -> AlgodClient {
-        AlgodClient::new_with_headers(address, token, version,HeaderMap::new())
+    pub fn new(address: &str, token: &str) -> AlgodClient {
+        AlgodClient::new_with_headers(address, token, HeaderMap::new())
     }
 
-    pub fn new_with_headers(address: &str, token: &str, version:&str, headers: HeaderMap) -> AlgodClient {
+    pub fn new_with_headers(address: &str, token: &str, headers: HeaderMap) -> AlgodClient {
         AlgodClient {
             url: address.to_string(),
             token: token.to_string(),
-            version:version.to_string(),
             headers,
         }
     }
@@ -56,7 +54,7 @@ impl AlgodClient {
     /// Gets the current node status
     pub fn status(&self) -> Result<NodeStatus, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/{}/status", self.url, self.version))
+            .get(&format!("{}/v2/status", self.url))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -83,7 +81,7 @@ impl AlgodClient {
     /// Get the block for the given round
     pub fn block(&self, round: Round) -> Result<Block, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/{}/block/{}",self.url, self.version, round.0))
+            .get(&format!("{}/v1/block/{}", self.url, round.0))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -95,7 +93,7 @@ impl AlgodClient {
     /// Gets the current supply reported by the ledger
     pub fn ledger_supply(&self) -> Result<Supply, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/{}/ledger/supply", self.url,self.version))
+            .get(&format!("{}/v1/ledger/supply", self.url))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -106,7 +104,7 @@ impl AlgodClient {
 
     pub fn account_information(&self, address: &str) -> Result<Account, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/{}/account/{}", self.url, self.version,address))
+            .get(&format!("{}/v1/account/{}", self.url, address))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -120,7 +118,7 @@ impl AlgodClient {
     /// Sorted by priority in decreasing order and truncated at the specified limit, or returns all if specified limit is 0
     pub fn pending_transactions(&self, limit: u64) -> Result<PendingTransactions, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/{}/transactions/pending", self.url,self.version))
+            .get(&format!("{}/v1/transactions/pending", self.url))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .query(&[("max", limit.to_string())])
@@ -137,8 +135,8 @@ impl AlgodClient {
     ) -> Result<Transaction, Error> {
         let response = reqwest::Client::new()
             .get(&format!(
-                "{}/{}/transactions/pending/{}",
-                self.url,self.version, transaction_id
+                "{}/v1/transactions/pending/{}",
+                self.url, transaction_id
             ))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
@@ -175,7 +173,7 @@ impl AlgodClient {
             query.push(("max", limit.to_string()))
         }
         let response = reqwest::Client::new()
-            .get(&format!("{}/{}/account/{}/transactions", self.url, self.version,address))
+            .get(&format!("{}/v2/account/{}/transactions", self.url, address))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .query(&query)
@@ -197,7 +195,7 @@ impl AlgodClient {
     /// Broadcasts a raw transaction to the network
     pub fn raw_transaction(&self, raw: &[u8]) -> Result<TransactionID, Error> {
         let response = reqwest::Client::new()
-            .post(&format!("{}/{}/transactions", self.url,self.version))
+            .post(&format!("{}/v2/transactions", self.url))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .body(raw.to_vec())
@@ -210,7 +208,7 @@ impl AlgodClient {
     /// Gets the information of a single transaction
     pub fn transaction(&self, transaction_id: &str) -> Result<Transaction, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/{}/transaction/{}", self.url,self.version, transaction_id))
+            .get(&format!("{}/v2/transaction/{}", self.url, transaction_id))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -227,8 +225,8 @@ impl AlgodClient {
     ) -> Result<Transaction, Error> {
         let response = reqwest::Client::new()
             .get(&format!(
-                "{}/{}/account/{}/transaction/{}",
-                self.url, self.version, address, transaction_id
+                "{}/v2/account/{}/transaction/{}",
+                self.url, address, transaction_id
             ))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
@@ -241,7 +239,7 @@ impl AlgodClient {
     /// Gets suggested fee in units of micro-Algos per byte
     pub fn suggested_fee(&self) -> Result<TransactionFee, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/{}/transactions/fee", self.url, self.version))
+            .get(&format!("{}/v2/transactions/fee", self.url))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -253,7 +251,7 @@ impl AlgodClient {
     /// Gets parameters for constructing a new transaction
     pub fn transaction_params(&self) -> Result<TransactionParams, Error> {
         let response = reqwest::Client::new()
-            .get(&format!("{}/{}/transactions/params", self.url, self.version))
+            .get(&format!("{}/v2/transactions/params", self.url))
             .header(AUTH_HEADER, &self.token)
             .headers(self.headers.clone())
             .send()?
@@ -276,31 +274,31 @@ pub mod models {
     #[derive(Debug, Serialize, Deserialize)]
     pub struct NodeStatus {
         /// the last round seen
-        #[serde(rename = "lastRound")]
+        #[serde(rename = "last-round")]
         pub last_round: Round,
 
         /// The last consensus version supported
-        #[serde(rename = "lastConsensusVersion")]
+        #[serde(rename = "last-version")]
         pub last_version: String,
 
         /// Next version of consensus protocol to use
-        #[serde(rename = "nextConsensusVersion")]
+        #[serde(rename = "next-version")]
         pub next_version: String,
 
         /// The round at which the next consensus version will apply
-        #[serde(rename = "nextConsensusVersionRound")]
+        #[serde(rename = "next-version-round")]
         pub next_version_round: Round,
 
         /// Whether the next consensus version is supported by this node
-        #[serde(rename = "nextConsensusVersionSupported")]
+        #[serde(rename = "next-version-supported")]
         pub next_version_supported: bool,
 
         /// Time since last round in nanoseconds
-        #[serde(rename = "timeSinceLastRound")]
+        #[serde(rename = "time-since-last-round")]
         pub time_since_last_round: i64,
 
         // Catchup time in nanoseconds
-        #[serde(rename = "catchupTime")]
+        #[serde(rename = "catchup-time")]
         pub catchup_time: i64,
     }
 
@@ -325,11 +323,11 @@ pub mod models {
         pub amount: MicroAlgos,
 
         /// the amount of MicroAlgos of pending rewards in this account.
-        #[serde(rename = "pendingrewards")]
+        #[serde(rename = "pending-rewards")]
         pub pending_rewards: MicroAlgos,
 
         /// the amount of MicroAlgos in the account, without the pending rewards.
-        #[serde(rename = "amountwithoutpendingrewards")]
+        #[serde(rename = "amount-without-pending-rewards")]
         pub amount_without_pending_rewards: u64,
 
         /// Rewards indicates the total rewards of MicroAlgos the account has recieved
@@ -369,10 +367,10 @@ pub mod models {
 
         /// Note is a free form data
         #[serde(
-            rename = "noteb64",
-            default,
-            skip_serializing_if = "Vec::is_empty",
-            deserialize_with = "deserialize_bytes"
+        rename = "noteb64",
+        default,
+        skip_serializing_if = "Vec::is_empty",
+        deserialize_with = "deserialize_bytes"
         )]
         pub note: Vec<u8>,
 
@@ -385,9 +383,9 @@ pub mod models {
         /// transaction will never be committed; other nodes may not have evicted the
         /// transaction and may attempt to commit it in the future.
         #[serde(
-            rename = "poolerror",
-            default,
-            skip_serializing_if = "String::is_empty"
+        rename = "poolerror",
+        default,
+        skip_serializing_if = "String::is_empty"
         )]
         pub pool_error: String,
 
@@ -399,10 +397,10 @@ pub mod models {
         #[serde(rename = "fromrewards", skip_serializing_if = "Option::is_none")]
         pub from_rewards: Option<u64>,
 
-        #[serde(rename = "genesisID")]
+        #[serde(rename = "genesis-id")]
         pub genesis_id: String,
 
-        #[serde(rename = "genesishashb64", deserialize_with = "deserialize_hash")]
+        #[serde(rename = "genesis-hash", deserialize_with = "deserialize_hash")]
         pub genesis_hash: HashDigest,
     }
 
@@ -459,19 +457,19 @@ pub mod models {
         pub fee: MicroAlgos,
 
         /// Genesis ID
-        #[serde(rename = "genesisID")]
+        #[serde(rename = "genesis-id")]
         pub genesis_id: String,
 
         /// Genesis hash
-        #[serde(rename = "genesishashb64", deserialize_with = "deserialize_hash")]
+        #[serde(rename = "genesis-hash", deserialize_with = "deserialize_hash")]
         pub genesis_hash: HashDigest,
 
         // The last round seen
-        #[serde(rename = "lastRound")]
+        #[serde(rename = "last-round")]
         pub last_round: Round,
 
         // The consensus protocol version as of last_round.
-        #[serde(rename = "consensusVersion")]
+        #[serde(rename = "consensus-version")]
         pub consensus_version: String,
     }
 

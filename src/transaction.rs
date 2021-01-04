@@ -20,19 +20,19 @@ pub struct BaseTransaction {
 /// A transaction that can appear in a block
 #[derive(Debug, Clone, Eq, PartialEq, Deserialize)]
 pub struct Transaction {
-    #[serde(rename = "snd")]
+    #[serde(rename = "sender")]
     pub sender: Address,
     #[serde(rename = "fee")]
     pub fee: MicroAlgos,
-    #[serde(rename = "fv")]
+    #[serde(rename = "first-valid")]
     pub first_valid: Round,
-    #[serde(rename = "lv")]
+    #[serde(rename = "last-valid")]
     pub last_valid: Round,
     #[serde(with = "serde_bytes", default)]
     pub note: Vec<u8>,
-    #[serde(rename = "gen", default)]
+    #[serde(rename = "genesisID", default)]
     pub genesis_id: String,
-    #[serde(rename = "gh")]
+    #[serde(rename = "genesishashb64")]
     pub genesis_hash: HashDigest,
     #[serde(flatten)]
     pub txn_type: TransactionType,
@@ -64,15 +64,15 @@ pub struct Payment {
 /// Fields for a key registration transaction
 #[derive(Debug, Clone, Eq, PartialEq, Deserialize)]
 pub struct KeyRegistration {
-    #[serde(rename = "votekey")]
+    #[serde(rename = "vote-pk")]
     pub vote_pk: VotePK,
-    #[serde(rename = "selkey")]
+    #[serde(rename = "selection-pk")]
     pub selection_pk: VRFPK,
-    #[serde(rename = "votefst")]
+    #[serde(rename = "vote-first")]
     pub vote_first: Round,
-    #[serde(rename = "votelst")]
+    #[serde(rename = "vote-last")]
     pub vote_last: Round,
-    #[serde(rename = "votekd")]
+    #[serde(rename = "vote-key-dilution")]
     pub vote_key_dilution: u64,
 }
 

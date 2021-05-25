@@ -2,6 +2,12 @@
 
 # Documentation
 
+# This project is frozen until the next release of TEAL.
+
+Please visit for active project
+
+https://github.com/manuelmauro/algonaut 
+
 This is the current Rust version implementation of the Algorand SDK <br>
 General Algorand documentation is available at https://developer.algorand.org/ <br>
 

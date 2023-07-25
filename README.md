@@ -18,7 +18,7 @@ For stable release candidate and documentation.
 
 
 # Quickstart
-This quick start guide assumes the user has the Algorand Sandbox 2.0 installed.<br>
+This quick start guide assumes the user has the Algorand Sandbox 2.x installed.<br>
 and using this repo as source.
 
 ```rust
